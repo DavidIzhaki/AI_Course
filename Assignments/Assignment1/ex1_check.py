@@ -4,6 +4,7 @@ import ex1
 import search
 
 
+
 def run_problem(func, targs=(), kwargs=None):
     if kwargs is None:
         kwargs = {}
@@ -19,14 +20,7 @@ def run_problem(func, targs=(), kwargs=None):
 # check_problem: problem, search_method, timeout
 # timeout_exec: search_method, targs=[problem], timeout_duration=timeout
 def solve_problems(problem, algorithm):
-    print("-----------------------------------") 
-    print("Problem:")
-    print("Grid:")
-    print(problem["grid"])
-    print("Total Water:", problem["total_water"])  
-    print("Agent Capacities", problem["agent_capacities"])  
-    print("Goals", problem["goals"])  
-    print("-----------------------------------")
+    
 
     try:
         p = ex1.create_watering_problem(problem)
@@ -47,121 +41,175 @@ def solve_problems(problem, algorithm):
         print("no solution")
 
 
-grid1 = [
-    # Row 0
-    [(0,50,50,50,50), (0,50,50,50,80), (0,50,50,80,50), (0,80,50,50,80), (21,50,50,50,50), (0,50,50,50,80), (0,50,50,50,80)],
-    # Row 1
-    [(0,50,50,80,50), (11,80,80,50,50), (0,50,50,50,50), (0,50,80,80,50), (0,80,50,50,50), (0,50,80,80,50), (0,80,80,50,50)],
-    # Row 2
-    [(0,50,50,80,50), (0,80,50,80,50), (101,80,50,50,80), (0,50,50,50,50), (0,50,50,50,80), (22,50,50,80,80), (0,80,50,50,50)],
-    # Row 3
-    [(23,50,50,50,50), (0,50,50,50,50), (0,50,80,80,50), (12,80,50,50,50), (0,50,80,80,50), (0,80,80,50,50), (0,50,50,50,50)],
-    # Row 4
-    [(0,50,50,50,80), (0,50,50,50,50), (0,50,50,80,50), (0,80,50,50,80), (102,50,50,80,50), (0,80,50,50,80), (0,50,50,50,50)],
-    # Row 5
-    [(0,50,80,80,50), (0,80,50,50,50), (0,50,50,50,50), (0,50,80,50,50), (0,50,50,50,50), (0,50,80,80,50), (0,80,50,50,50)],
-    # Row 6
-    [(0,50,50,50,50), (0,50,50,50,50), (0,50,50,50,50), (0,50,50,50,50), (0,50,50,50,50), (0,50,50,50,50), (0,50,50,50,50)]
-]
 
+#Optimal : 20
+Problem_pdf = {
+    "Size":   (3, 3),
+    "Walls":  {(0, 1), (2, 1)},
+    "Taps":   {(1, 1): 6},
+    "Plants": {(2, 0): 2, (0, 2): 3},
+    "Robots": {10: (1, 0, 0, 2), 11: (1, 2, 0, 2)},
+}
+
+# Format reminder:
+# {
+#   "Size":   (N, M),
+#   "Walls":  {(r,c), ...},
+#   "Taps":   {(r,c): remaining_water, ...},
+#   "Plants": {(r,c): required_water, ...},
+#   "Robots": {rid: (r, c, load, capacity), ...}
+# }
+
+# -------------------------
+# Problem 1: Tiny, no walls
+# One robot, one tap, one plant
+# -------------------------
+#Optimal : 8
 problem1 = {
-    "grid": grid1,
-    "total_water": 40,
-    "agent_capacities": { "11": 10, "12": 12 },
-    "goals": { "21": 3, "22": 4, "23": 5 }
-}
-grid11 = [
-    # Row 0
-    [(0,50,50,50,50), (0,50,50,50,80), (0,50,50,80,50), (0,80,50,50,80), (21,50,50,50,50), (0,50,50,50,80), (0,50,50,50,80)],
-    # Row 1
-    [(0,50,50,80,50), (11,80,80,50,50), (0,50,50,50,50), (0,50,80,80,50), (0,80,50,50,50), (0,50,80,80,50), (0,80,80,50,50)],
-    # Row 2
-    [(0,50,50,80,50), (0,80,50,80,50), (101,80,50,50,80), (0,50,50,50,50), (0,50,50,50,80), (22,50,50,80,80), (0,80,50,50,50)],
-    # Row 3
-    [(23,50,50,50,50), (0,50,50,50,50), (0,50,80,80,50), (12,80,50,50,50), (0,50,80,80,50), (0,80,80,50,50), (0,50,50,50,50)],
-    # Row 4
-    [(24,50,50,50,80), (0,50,50,50,50), (0,50,50,80,50), (0,80,50,50,80), (102,50,50,80,50), (0,80,50,50,80), (0,50,50,50,50)],
-    # Row 5
-    [(0,50,80,80,50), (0,80,50,50,50), (0,50,50,50,50), (0,50,80,50,50), (0,50,50,50,50), (0,50,80,80,50), (25,80,50,50,50)],
-    # Row 6
-    [(0,50,50,50,50), (0,50,50,50,50), (0,50,50,50,50), (0,50,50,50,50), (0,50,50,50,50), (0,50,50,50,50), (0,50,50,50,50)]
-]
-
-problem11 = {
-    "grid": grid11,
-    "total_water": 40,
-    "agent_capacities": { "11": 10, "12": 12 },
-    "goals": { "21": 3, "22": 4, "23": 5,"24": 5,"25": 3 }
-}
-problem_easy = {
-    "grid": [
-        # r=0
-        [(0,80,80,50,50), (100,50,50,50,50), (0,50,80,80,50)],
-        # r=1
-        [(11,80,50,50,50), (12,50,50,50,50), (0,80,50,80,50)],
-        # r=2
-        [(0,80,50,50,80), (21,50,50,50,50), (0,50,50,80,80)],
-    ],
-    "total_water": 80,
-    "agent_capacities": { "11": 5,"12":5 },
-    "goals": { "21": 9 }   # plant 21 needs 4 units
+    "Size":   (3, 3),
+    "Walls":  set(),
+    "Taps":   {(1, 1): 3},        # center
+    "Plants": {(0, 2): 2},        # top-right
+    "Robots": {
+        10: (2, 0, 0, 2),         # bottom-left, cap 2
+    },
 }
 
+# -------------------------
+# Problem 2: Small with walls (your example-style)
+# Two robots, one tap, two plants, vertical walls
+# -------------------------
+#Optimal: 20
 problem2 = {
-    "grid": [
-        # r=0
-        [(0,80,80,50,50), (100,50,80,50,80), (0,50,80,80,50)],
-        # r=1
-        [(11,80,50,50,50), (0,50,80,80,50), (0,80,50,80,50)],
-        # r=2
-        [(0,80,50,50,80), (0,50,50,50,80), (21,50,50,80,80)],
-    ],
-    "total_water": 80,
-    "agent_capacities": { "11": 5 },
-    "goals": { "21": 9 }   # plant 21 needs 4 units
-}
-
-problem_check = {
-    "grid": [
-        # r=0
-        [(0,80,80,50,50), (100,80,80,80,50), (0,50,80,80,50)],
-        # r=1
-        [(0,80,80,50,80), (11,50,50,80,80), (0,80,50,80,50)],
-        # r=2
-        [(0,80,50,50,80), (0,50,50,50,80), (21,50,50,80,80)],
-    ],
-    "total_water": 6,
-    "agent_capacities": { "11": 5 },
-    "goals": { "21": 4 }   # plant 21 needs 4 units
+    "Size":  (3, 3),
+    "Walls": {(0, 1), (2, 1)},    # middle column walls in top & bottom rows
+    "Taps":  {(1, 1): 6},         # center
+    "Plants": {
+        (0, 2): 3,                # top-right
+        (2, 0): 2,                # bottom-left
+    },
+    "Robots": {
+        10: (1, 0, 0, 2),         # middle-left
+        11: (1, 2, 0, 2),         # middle-right
+    },
 }
 
 
+
+
+# -------------------------
+# Problem 3: Corridor with walls, 5x3, one robot shuttling
+# -------------------------
+#optimal: 28
 problem3 = {
-    "grid": [
-        # r=0
-        [(0,80,80,50,50), (101,50,80,50,50), (0,50,80,50,80), (0,50,80,50,50), (21,50,80,80,50)],
-        # r=1
-        [(11,80,50,50,50), (0,50,50,50,50), (0,50,80,50,80), (0,50,50,80,50), (0,80,50,80,50)],
-        # r=2
-        [(0,80,50,50,50), (0,50,50,80,50), (0,80,80,50,80), (0,50,50,50,50), (0,50,50,80,50)],
-        # r=3
-        [(0,80,50,50,50), (0,50,50,50,50), (12,50,80,50,50), (0,50,50,50,80), (102,50,50,80,50)],
-        # r=4
-        [(0,80,50,50,80), (0,50,50,50,80), (0,50,50,50,80), (22,50,80,50,80), (0,50,50,80,80)],
-    ],
-    "total_water": 20,
-    "agent_capacities": { "11": 8, "12": 10 },
-    "goals": { "21": 6, "22": 7 }
+    "Size":  (5, 3),              # rows: 0..4, cols: 0..2
+    "Walls": {(1, 1), (3, 1)},    # walls in the middle column
+    "Taps": {
+        (0, 0): 5,                # top-left
+    },
+    "Plants": {
+        (4, 2): 4,                # bottom-right
+    },
+    "Robots": {
+        10: (2, 0, 0, 2),         # middle-left, cap 2 → needs multiple trips
+    },
 }
+
+# -------------------------
+# Problem 4
+# -------------------------
+#optimal: 13
+problem4 = {
+    "Size":  (5, 5),
+    "Walls": {(0, 1),(1, 1),(2, 1), (0, 3),(1, 3),(2, 3)},    # two blocked cells
+    "Taps": {
+        (3, 2): 1,                # top-left
+        (4, 2): 1,                # bottom-right
+    },
+    "Plants": {
+        (0, 2): 1,                # top-right
+        (1, 2): 1,                # bottom-left
+                        # somewhere in middle-left
+    },
+    "Robots": {
+        10: (3, 1, 0, 1),         # near left side
+        11: (3, 3, 0, 1),         # near right side
+    },
+}
+
+# -------------------------
+# Problem 5: Intentional dead-end (not enough water)
+# Good to test your dead-end pruning
+# -------------------------
+problem5_deadend = {
+    "Size":  (3, 4),
+    "Walls": set(),
+    "Taps": {
+        (1, 1): 3,                # only 3 units in world
+    },
+    "Plants": {
+        (0, 3): 2,
+        (2, 3): 2,                # total need = 4 > 3 → impossible
+    },
+    "Robots": {
+        10: (1, 0, 0, 2),
+    },
+}
+# -------------------------
+# Problem 6:
+# -------------------------
+#optimal: 8
+problem6 = {
+    "Size":  (8, 8),
+    "Walls": {
+        # All cells except the corridor (1,0), (1,1), (1,2)
+        *( (r, c)
+           for r in range(8)
+           for c in range(8)
+           if not (r == 1 and c in (0, 1, 2)) )
+    },
+    "Taps": {
+        (1, 1): 3,
+    },
+    "Plants": {
+        (1, 2): 3,
+    },
+    "Robots": {
+        10: (1, 0, 0, 3),   # start left of tap, cap 3
+    },
+}
+#optimal: 20
+problem7 = {
+    "Size":  (4, 4),
+
+    "Walls": set(),  # everything open
+
+    "Taps": {
+        (2, 2): 18,       # center tap
+    },
+
+    "Plants": {
+        (0, 3): 3,        # top-right
+        (3, 0): 3,        # bottom-left
+        # total need = 8, tap has 18 (some slack)
+    },
+
+    "Robots": {
+        10: (2, 1, 0, 3),  # left of tap, capacity 3
+        11: (2, 0, 0, 3),  # right of tap, capacity 3
+    },
+}
+
+
 
 
 
 
 def main():
     start = time.time()
-    problem = [problem11]
+    problem = []
     for p in problem:
-        for a in ['astar']:
+        for a in ['astar','gbfs']:
             solve_problems(p, a)
     end = time.time()
     print('Submission took:', end-start, 'seconds.')
