@@ -16,24 +16,12 @@ def solve(game: ext_plant.Game):
     game.show_history()
     return game.get_current_reward()
 
-
- 
-problem4 = {
-    "Size":  (5, 5),
-    "Walls": {(0, 1),(1, 1),(2, 1), (0, 3),(1, 3),(2, 3)},    # two blocked cells
-    "Taps": {
-        (3, 2): 1,                # top-left
-        (4, 2): 1,                # bottom-right
-    },
-    "Plants": {
-        (0, 2): 1,                # top-right
-        (1, 2): 1,                # bottom-left
-                        # somewhere in middle-left
-    },
-    "Robots": {
-        10: (3, 1, 0, 1),         # near left side
-        11: (3, 3, 0, 1),         # near right side
-    },
+problem_pdf = {
+    "Size":   (3, 3),
+    "Walls":  {(0, 1), (2, 1)},
+    "Taps":   {(1, 1): 6},
+    "Plants": {(2, 0): 2, (0, 2): 3},
+    "Robots": {10: (1, 0, 0, 2), 11: (1, 2, 0, 2)},
     "robot_chosen_action_prob":{
         10: 0.95,
         11: 0.9,
@@ -47,13 +35,52 @@ problem4 = {
     "horizon": 400,
 }
 
+problem_pdf2 = {
+    "Size":   (3, 3),
+    "Walls":  {(0, 1), (2, 1)},
+    "Taps":   {(1, 1): 6},
+    "Plants": {(2, 0): 2, (0, 2): 3},
+    "Robots": {10: (1, 0, 0, 2), 11: (1, 2, 0, 2)},
+    "robot_chosen_action_prob":{
+        10: 0.9,
+        11: 0.8,
+    },
+    "goal_reward": 20,
+    "plants_reward": {
+        (0, 2) : [2,3,6,10],
+        (1, 2) : [1,5,6,10],
+    },
+    "seed": 45,
+    "horizon": 400,
+}
+
+problem_pdf3 = {
+    "Size":   (3, 3),
+    "Walls":  {(0, 1), (2, 1)},
+    "Taps":   {(1, 1): 6},
+    "Plants": {(2, 0): 2, (0, 2): 3},
+    "Robots": {10: (1, 0, 0, 2), 11: (1, 2, 0, 2)},
+    "robot_chosen_action_prob":{
+        10: 0.7,
+        11: 0.6,
+    },
+    "goal_reward": 20,
+    "plants_reward": {
+        (0, 2) : [2,3,6,10],
+        (1, 2) : [1,5,6,10],
+    },
+    "seed": 45,
+    "horizon": 400,
+}
+ 
+
 
 def main():
     debug_mode = False
     n_runs = 30
     # Fix horizon
     total_reward = 0.0
-    problems = [problem4]
+    problems = [problem_pdf,problem_pdf2,problem_pdf3]
     for problem in problems:
         for seed in range(n_runs):
             # Set a different random seed each run
