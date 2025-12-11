@@ -17,10 +17,7 @@ def solve(game: ext_plant.Game):
     return game.get_current_reward()
 
 
-# To add problems 
-# First problem with 1 Robot with big capacity and pour all. 
-# Give probabilites of 0.9-0.95.
-# Then continue to the next problems. 
+ 
 problem4 = {
     "Size":  (5, 5),
     "Walls": {(0, 1),(1, 1),(2, 1), (0, 3),(1, 3),(2, 3)},    # two blocked cells
@@ -38,8 +35,8 @@ problem4 = {
         11: (3, 3, 0, 1),         # near right side
     },
     "robot_chosen_action_prob":{
-        10: 0.6,
-        11: 0.7,
+        10: 0.95,
+        11: 0.9,
     },
     "goal_reward": 20,
     "plants_reward": {
