@@ -29,7 +29,7 @@ problem_pdf = {
     "goal_reward": 10,
     "plants_reward": {
         (0, 2) : [1,2,3,4],
-        (1, 2) : [1,2,3,4],
+        (2, 0) : [1,2,3,4],
     },
     "seed": 45,
     "horizon": 400,
@@ -48,7 +48,7 @@ problem_pdf2 = {
     "goal_reward": 12,
     "plants_reward": {
         (0, 2) : [1,3,5,7],
-        (1, 2) : [1,2,3,4],
+        (2, 0) : [1,2,3,4],
     },
     "seed": 45,
     "horizon": 400,
@@ -67,7 +67,7 @@ problem_pdf3 = {
     "goal_reward": 30,
     "plants_reward": {
         (0, 2) : [1,2,3,4],
-        (1, 2) : [10,11,12,13],
+        (2, 0) : [10,11,12,13],
     },
     "seed": 45,
     "horizon": 400,
