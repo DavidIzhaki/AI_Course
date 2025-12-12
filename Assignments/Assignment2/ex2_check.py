@@ -32,7 +32,7 @@ problem_pdf = {
         (2, 0) : [1,2,3,4],
     },
     "seed": 45,
-    "horizon": 400,
+    "horizon": 30,
 }
 
 problem_pdf2 = {
@@ -51,7 +51,7 @@ problem_pdf2 = {
         (2, 0) : [1,2,3,4],
     },
     "seed": 45,
-    "horizon": 400,
+    "horizon": 35,
 }
 
 problem_pdf3 = {
@@ -70,7 +70,7 @@ problem_pdf3 = {
         (2, 0) : [10,11,12,13],
     },
     "seed": 45,
-    "horizon": 400,
+    "horizon": 30,
 }
  
 
