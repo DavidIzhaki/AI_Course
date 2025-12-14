@@ -82,6 +82,7 @@ def main():
     total_reward = 0.0
     problems = [problem_pdf,problem_pdf2,problem_pdf3]
     for problem in problems:
+        total_reward = 0.0
         for seed in range(n_runs):
             # Set a different random seed each run
             problem["seed"] = seed
